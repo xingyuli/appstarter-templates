@@ -1,0 +1,40 @@
+import org.springframework.boot.env.YamlPropertySourceLoader
+import org.springframework.core.io.FileSystemResourceLoader
+
+buildscript {
+    repositories {
+        maven {
+            url "http://artifactory.mobisist.com/artifactory/libs-all"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-starter:$spring_boot_version"
+        classpath "mysql:mysql-connector-java:$mysql_connector_version"
+    }
+}
+
+plugins {
+    // must be aligned with the version used by web-common
+    id "org.flywaydb.flyway" version "3.2.1"
+}
+
+flyway {
+    def springBootProfile = rootProject.hasProperty('springBootProfile') ? rootProject.getProperty('springBootProfile') : null
+    def mysqlServerIP = rootProject.hasProperty('mysqlServerIP') ? rootProject.getProperty('mysqlServerIP') : 'localhost'
+
+    def resource = new FileSystemResourceLoader().getResource("file:${rootProject.file('web-common/src/main/resources/application.yaml')}")
+    def defaultProfile = new YamlPropertySourceLoader().load('default', resource, null)
+    def explicitProfile = springBootProfile != null ? new YamlPropertySourceLoader().load('explicit', resource, "$springBootProfile") : null
+
+    def getPropertyFromProfile = { String name ->
+        def explicitValue = explicitProfile != null ? explicitProfile.getProperty(name) : null
+        explicitValue ?: defaultProfile.getProperty(name)
+    }
+
+    url               = "${getPropertyFromProfile('spring.datasource.url').toString().replace('//mysql', "//${mysqlServerIP}")}"
+    user              = "${getPropertyFromProfile('spring.datasource.username')}"
+    password          = "${getPropertyFromProfile('spring.datasource.password')}"
+    table             = "${getPropertyFromProfile('flyway.table')}"
+    locations         = [ "filesystem:${rootProject.file('data/sql').absolutePath}" ]
+    baselineOnMigrate = (getPropertyFromProfile('flyway.baseline-on-migrate') ?: "false").toString().toBoolean()
+}

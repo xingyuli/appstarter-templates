@@ -1,0 +1,5 @@
+dependencies {
+    compile "org.swordess.common:swordess-common-lang:$swordess_common_lang_version"
+    compile "com.fasterxml.jackson.core:jackson-databind"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+}

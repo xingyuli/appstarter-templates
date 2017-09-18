@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/fragment :: meta"/>
+
+    <!-- Page title -->
+    <th:block th:include="common/fragment :: title"/>
+
+    <!-- Vendor styles -->
+    <th:block th:include="common/fragment :: css"/>
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/summernote/dist/summernote.css}" />
+</head>
+<body class="fixed-small-header fixed-sidebar fixed-navbar fixed-footer">
+
+<!-- 页面加载样式 -->
+<!--<div class="splash"> <div class="color-line"></div><div class="splash-title"><p>请求处理中，请耐心等待...</p><div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>-->
+<!-- 低版本浏览器提示 -->
+<!--[if lt IE 7]>
+<p class="alert alert-danger">您在使用一个<strong>过时的</strong>浏览器，请<a href="http://browsehappy.com/">浏览器</a>来提高您的体验。</p>
+<![endif]-->
+
+<!-- 头部 -->
+<!-- 侧边栏 -->
+<th:block th:include="common/fragment :: header"></th:block>
+<th:block th:include="common/fragment :: nav"></th:block>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+    <div class="normalheader transition animated fadeIn small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <h2 class="font-light m-b-xs">
+                    <i class="fa fa-hospital-o"></i> 会员等级设置
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <table id="quizDataTable" class="dataTable table table-stripped">
+        </table>
+    </div>
+    <!-- Footer-->
+    <th:block th:include="common/fragment :: footer"></th:block>
+</div>
+
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" data-bind="text: (isEdit()?'编辑':'新增') + '等级'"></h5>
+            </div>
+            <form id="formTag" class="form-horizontal" novalidate="novalidate" onsubmit="return false;">
+                <div class="modal-body">
+                    <input type="hidden" name="id" data-bind="value: id" />
+                    <div class="form-group">
+                        <div class="col-lg-3 control-label"><label for="form-name"><span class="text-danger">*</span>名称</label></div>
+                        <div class="col-lg-9"><input id="form-name" placeholder="请填写" type="text" required="required" name="name" data-bind="value: name" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3 control-label"><label for="form-minPoints"><span class="text-danger">*</span>积分下限（含）</label></div>
+                        <div class="col-lg-9"><input id="form-minPoints" type="text" required="required" name="minPoints" data-bind="value: minPoints" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3 control-label"><label for="form-maxPoints">积分上限（含）</label></div>
+                        <div class="col-lg-9"><input id="form-maxPoints" type="text" name="maxPoints" data-bind="value: maxPoints" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3 control-label"><label for="form-pointToRmbRatio"><span class="text-danger">*</span>积分提现比例</label></div>
+                        <div class="col-lg-9">
+                            <input id="form-pointToRmbRatio" placeholder="请填写" type="text" required="required" name="pointToRmbRatio" data-bind="value: pointToRmbRatio" class="form-control" />
+                        </div>
+                    </div>
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-success">保存</button>
+                </div><!-- .modal-footer -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Vendor scripts -->
+<th:block th:include="common/fragment :: js"/>
+<script th:src="@{/assets/internal/js/admin/userLevelManage.js}"></script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<!-- 标题 -->
+<div th:fragment="title">
+    <title>中汽车匠台管理系统</title>
+</div>
+
+<!--common meta-->
+<div th:fragment="meta">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</div>
+
+<!--common css-->
+<div th:fragment="css">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/external/images/logo.ico}" />
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/fontawesome/css/font-awesome.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/metisMenu/dist/metisMenu.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/animate.css/animate.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/bootstrap/dist/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/sweetalert/lib/sweetalert.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/datatables.net-select-bs/css/select.bootstrap.min.css}" />
+
+    <!-- App styles -->
+    <link rel="stylesheet" th:href="@{/assets/external/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/fonts/pe-icon-7-stroke/css/helper.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/styles/style.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/external/styles/app.css}"/>
+</div>
+
+<!-- common js -->
+<div th:fragment="js">
+    <!-- Vendor scripts -->
+    <script type="text/javascript" th:src="@{/assets/external/vendor/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/moment/moment.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/slimScroll/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/bootstrap-datepicker/dist/js/locales/bootstrap-datepicker.zh-CN.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/metisMenu/dist/metisMenu.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/iCheck/icheck.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/sparkline/index.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/sweetalert/lib/sweetalert.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net/js/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/datatables.net-select/js/dataTables.select.min.js}"></script>
+
+    <!-- App scripts -->
+    <script  type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var contextRoot = /*[[ ${#httpServletRequest.contextPath} ]]*/;
+
+    function toRelativeLocation(relativePath) {
+        location.href = contextRoot + relativePath;
+    }
+    /*]]>*/
+    </script>
+
+    <script type="text/javascript" th:src="@{/assets/external/js/app/homer.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/api_constants.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/options.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/common.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/column-renderer.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/view-model.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/knockout/dist/knockout.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/knockout/dist/knockout.mapping.js}"></script>
+
+    <script  type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        function toChangePassword() {
+            $('#changePasswordModal').modal('show');
+        }
+
+        $(function() {
+            $('#changePasswordForm').validate({
+                rules: {
+                    oldPassword: 'required',
+                    newPassword: {
+                        required: true,
+                        minlength: 8
+                    },
+                    confirmNewPassword: {
+                        equalTo: '#changePassword-newPassword'
+                    }
+                },
+                messages: {
+                    confirmNewPassword: {
+                        equalTo: '两次密码不一致'
+                    }
+                },
+                submitHandler: function(form) {
+                    var formData = new FormData(form);
+                    $.ajax({
+                        url: CON.API.USERPROFILE_CHANGE_PASSWORD,
+                        data: formData,
+                        type: 'POST',
+                        processData: false,
+                        contentType: false,
+                        success: function(resp) {
+                            if (CON.CODE.OK === resp.code) {
+                                $('#changePasswordModal').modal('hide');
+                                swalHelper.success('保存成功！');
+
+                            } else if (CON.CODE.UserErrorCode.PASSWORD_NOT_MATCH === resp.code) {
+                                swalHelper.error('旧密码不正确！');
+
+                            } else {
+                                swalHelper.error('保存失败！');
+                            }
+                        }
+                    });
+                }
+            });
+
+            if (!$('#loginForm').length) {
+                var unreadMessagesVM = ko.mapping.fromJS({
+                    certApplications: 0,
+                    withdrawApplications: 0,
+                    knowledgeCorrections: 0
+                });
+                unreadMessagesVM.totalOfApplicationMenu = ko.pureComputed(function() {
+                    return unreadMessagesVM.certApplications() + unreadMessagesVM.withdrawApplications();
+                });
+                unreadMessagesVM.totalOfKnowledgeMenu = ko.pureComputed(function() {
+                    return unreadMessagesVM.knowledgeCorrections();
+                });
+
+                var fetchUnreadMessagesTimer;
+                window.fetchUnreadMessages = function() {
+                    if (fetchUnreadMessagesTimer) {
+                        window.clearTimeout(fetchUnreadMessagesTimer);
+                    }
+
+                    $.getJSON(CON.API.MESSAGE_COUNT_UNREAD, function (resp) {
+                        ko.mapping.fromJS(resp.result, unreadMessagesVM);
+                        fetchUnreadMessagesTimer = window.setTimeout(fetchUnreadMessages, 20 * 1000);
+                    });
+                };
+
+                fetchUnreadMessages();
+
+                ko.applyBindings(unreadMessagesVM, document.getElementById('side-menu'));
+            }
+        });
+        /*]]>*/
+    </script>
+</div>
+
+<!-- 头部 -->
+<div th:fragment="header">
+    <div id="header">
+        <div class="color-line">
+        </div>
+        <div id="logo" class="light-version">
+        <span>中汽车匠</span>
+        </div>
+        <form role="search" class="navbar-form-custom" style="width: 75%;text-align:center;">
+            <div class="form-group">
+                <input type="text" placeholder="中汽车匠后台管理系统" class="form-control" disabled="disabled" style="width: 100%;text-align:center;" />
+            </div>
+        </form>
+        <nav role="navigation">
+            <!-- <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>-->
+            <div class="small-logo">
+                <span class="text-primary">中汽车匠</span>
+            </div>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav no-borders">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <i class="pe-7s-keypad"></i>
+                        </a>
+                        <div class="dropdown-menu hdropdown bigmenu animated flipInX">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);" onclick="toChangePassword();">
+                                            <i class="pe pe-7s-key text-info"></i>
+                                            <h5>修改密码</h5>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript: $('#bind-logout').submit()">
+                            <i class="pe-7s-upload pe-rotate-90"></i>
+                        </a>
+                        <form id="bind-logout" method="post" th:action="@{/logout}">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">修改密码</h5>
+                </div>
+                <form id="changePasswordForm" class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="alert alert-info">
+                            <span><i class="fa fa-warning"></i> 注意！</span> 车匠与品牌的管理后台账户互通, 修改密码将影响品牌账号！
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3 control-label"><label for="changePassword-oldPassword"><span class="text-danger">*</span>旧密码</label></div>
+                            <div class="col-lg-9">
+                                <input type="password" id="changePassword-oldPassword" class="form-control" placeholder="请填写" name="oldPassword" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3 control-label"><label for="changePassword-newPassword"><span class="text-danger">*</span>新密码</label></div>
+                            <div class="col-lg-9">
+                                <input type="password" id="changePassword-newPassword" class="form-control" placeholder="请填写" name="newPassword" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3 control-label"><label for="changePassword-confirmNewPassword"><span class="text-danger">*</span>确认新密码</label></div>
+                            <div class="col-lg-9">
+                                <input type="password" id="changePassword-confirmNewPassword" class="form-control" placeholder="请填写" name="confirmNewPassword" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 侧边导航栏 -->
+<div th:fragment="nav">
+    <aside id="menu">
+        <div id="navigation">
+            <div class="profile-picture">
+                <img th:src="@{/assets/external/images/profile.png}" class="img-circle m-b" alt="logo"/>
+                <!--<div class="stats-label text-color">-->
+                    <!--<div>-->
+                        <!--<small class="text-muted">超级管理员</small>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="#"><i class="fa fa-group"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level">
+                        <li><a th:href="@{/userManage}">技师管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">审批</span><!-- ko if: totalOfApplicationMenu --><span style="margin-left: 3px;" class="badge badge-danger" data-bind="text: totalOfApplicationMenu"></span><!-- /ko --><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level">
+                        <li><a th:href="@{/certManage}">认证技师审核 <!-- ko if: certApplications --><span class="badge badge-danger" data-bind="text: certApplications"></span><!-- /ko --></a></li>
+                        <li><a th:href="@{/withdrawManage}">提现管理 <!-- ko if: withdrawApplications --><span class="badge badge-danger" data-bind="text: withdrawApplications"></span><!-- /ko --></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-folder-open"></i> <span class="nav-label">知识库管理</span><!-- ko if: totalOfKnowledgeMenu --><span style="margin-left: 3px;" class="badge badge-danger" data-bind="text: totalOfKnowledgeMenu"></span><!-- /ko --><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a th:href="@{/knowledgeManage}">列表</a></li>
+                        <li><a th:href="@{/knowledgeCorrectionManage}">纠错 <!-- ko if: knowledgeCorrections --><span class="badge badge-danger" data-bind="text: knowledgeCorrections"></span><!-- /ko --></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">配置管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <!--/* <li><a th:href="@{/admin/coinManage}">知识币档次设置</a></li> */-->
+                        <li><a th:href="@{/admin/userLevelManage}">会员等级设置</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</div>
+
+<!-- 底部 -->
+<div th:fragment="footer">
+    <footer class="footer">
+        <span class="pull-right">
+            中汽车匠后台管理系统
+        </span>
+    </footer>
+</div>
+</body>
+
+</html>

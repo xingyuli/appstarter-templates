@@ -1,0 +1,30 @@
+server.port: 9100
+
+appstarter:
+  jwt-secret: HVbQueBPDGWnM2wMbVnT2nAR42fSCPns
+
+---
+spring:
+  profiles: docker-local
+logging:
+  file: /var/logs/app/portal.log
+appstarter:
+  upload: file:/var/opt/upload
+
+---
+spring:
+  profiles: docker-dev
+logging:
+  file: /var/logs/app/portal.log
+appstarter:
+  random-seed: e4CCNFz6VEwivhYT
+  upload: file:/var/opt/upload
+
+---
+spring:
+  profiles: docker-prod
+logging:
+  file: /var/logs/app/portal.log
+appstarter:
+  random-seed: e4CCNFz6VEwivhYT
+  upload: file:/var/opt/upload

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="component">
+
+<script type="text/html" id="suggest-template">
+    <div class="input-group" data-bind="css: { 'ko-suggest-input-group-success': _candidates().length }">
+        <input type="hidden" data-bind="attr: { name: _options.name }, value: _idToDisplay" />
+
+        <!-- ko if: _isViewMode -->
+        <input type="text" data-bind="value: _selectionToDisplay" class="form-control" readonly="readonly" style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;" />
+        <span class="input-group-btn">
+            <!-- ko if: _enableClear -->
+            <button type="button" class="btn btn-default" data-bind="click: _clearHandler"><i class="glyphicon glyphicon-remove"></i></button>
+            <!-- /ko -->
+            <button type="button" class="btn btn-default" data-bind="click: _editHandler"><i class="glyphicon glyphicon-edit"></i></button>
+        </span>
+        <!-- /ko -->
+
+        <!-- ko if: _isEditMode -->
+        <input type="text" class="form-control" style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;"
+               data-bind="value: _query, event: { input: _notifyQueryChange }, attr: { required: _options.required, placeholder: _options.placeholder }" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" data-bind="click: _searchHandler"><i class="glyphicon glyphicon-search"></i></button>
+            <!-- ko if: _enableCancel -->
+            <button type="button" class="btn btn-default" data-bind="click: _cancelHandler"><i class="fa fa-reply"></i></button>
+            <!-- /ko -->
+        </span>
+        <!-- /ko -->
+    </div>
+
+    <!-- ko if: _candidates().length -->
+    <ul id="ko-suggest-result" class="list-group" data-bind="foreach: _candidates">
+        <li class="list-group-item" data-bind="text: $parent._options.renderSelection($data), click: $parent._choose"></li>
+    </ul>
+    <div class="text-danger" data-bind="if: _candidatesTooMany">
+        <i class="glyphicon glyphicon-warning-sign" style="margin-right: 5px;"></i>当前搜索结果过多，请细化搜索条件！
+    </div>
+    <!-- /ko -->
+    <!-- ko if: _candidatesNoResult -->
+    <div class="text-danger">
+        <i class="glyphicon glyphicon-warning-sign" style="margin-right: 5px;"></i>未检索到匹配的结果 :(
+    </div>
+    <!-- /ko -->
+</script>
+
+<script type="text/javascript" th:src="@{/assets/external/js/common/knockout/suggest.js}"></script>
+
+</body>
+</html>

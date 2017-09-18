@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+    environment:
+      - LANG=C.UTF-8
+    ports:
+      - "${APP_PORT}:80"
+    volumes:
+      - resource:/var/opt/resource:ro
+    links:
+      - admin
+      - portal
+    restart: always
+
+  admin:
+    build:
+      context: ./admin
+      args:
+        - PROFILE=${PROFILE}
+    environment:
+      - LANG=C.UTF-8
+    extra_hosts:
+      - "mysql:${MYSQL_SERVER_IP}"
+    volumes:
+      - resource:/var/opt/upload
+      - logs:/var/logs/app
+    restart: always
+
+  portal:
+    build:
+      context: ./portal
+      args:
+        - PROFILE=${PROFILE}
+    environment:
+      - LANG=C.UTF-8
+    extra_hosts:
+      - "mysql:${MYSQL_SERVER_IP}"
+    volumes:
+      - resource:/var/opt/upload
+      - logs:/var/logs/app
+    restart: always
+
+volumes:
+  resource:
+  logs:

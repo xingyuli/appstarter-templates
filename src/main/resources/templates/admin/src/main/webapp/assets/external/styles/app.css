@@ -1,0 +1,80 @@
+
+/* ***** common setting of our app ***** */
+
+:root {
+    --global-color-success: #62cb31; /* bootstrap success color */
+}
+
+.nav-tabs-custom .tab-content {
+    padding: 10px;
+}
+
+img.removed {
+    filter: grayscale(100%) opacity(70%);
+}
+
+.row-timestamp {
+    color: #ccc;
+    margin: 3px 0 5px;
+}
+
+#search-custom ul.dropdown-menu{
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.user-render .uname {
+    font-weight: bold;
+    font-size: 150%;
+}
+.user-render .udetail {
+    margin-top: 3px;
+}
+
+/* jquery validation highlight optimization */
+.input-group.error {
+    border: 1px solid #e74c3c !important;
+    border-radius: 4px;
+}
+.input-group.error .form-control {
+    border: none;
+}
+.input-group.error .input-group-addon:first-child {
+    border: none;
+    border-right: 1px solid #e4e5e7 !important;
+}
+.input-group.error .input-group-addon:last-child {
+    border: none;
+    border-left: 1px solid #e4e5e7 !important;
+}
+.input-group.error .input-group-btn:first-child .btn {
+    border: none;
+    border-right: 1px solid #e4e5e7 !important;
+}
+.input-group.error .input-group-btn:last-child .btn {
+    border: none;
+    border-left: 1px solid #e4e5e7 !important;
+}
+
+/* ko components */
+
+.ko-suggest-input-group-success input {
+    border-bottom-left-radius: 0;
+}
+.ko-suggest-input-group-success .input-group-btn button:last-child {
+    border-bottom-right-radius: 0;
+}
+#ko-suggest-result {
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+}
+#ko-suggest-result .list-group-item:first-child {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+#ko-suggest-result .list-group-item:hover {
+    background-color: var(--global-color-success);
+    color: #fff;
+}

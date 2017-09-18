@@ -1,0 +1,14 @@
+**/*.jar
+**/*.bat
+**/*.sh
+**/*.zip
+**/*.gz
+**/*.xz
+**/*.tar
+**/*.7z
+gradle/
+.gradle/
+gradlew
+gradlew.bat
+web-common/src/main/resources/banner.txt
+**/webapp/assets/**

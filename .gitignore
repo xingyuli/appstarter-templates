@@ -1,0 +1,9 @@
+# IntellijIDEA
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+
+# produced by gradle-archetype-plugin
+generated/

@@ -1,0 +1,81 @@
+import groovy.xml.MarkupBuilder
+import org.jooq.util.GenerationTool
+
+import javax.xml.bind.JAXB
+
+buildscript {
+    repositories {
+        maven {
+            url "http://artifactory.mobisist.com/artifactory/libs-all"
+        }
+    }
+    dependencies {
+        classpath "org.jooq:jooq-codegen:$jooq_version"
+        classpath "mysql:mysql-connector-java:$mysql_connector_version"
+    }
+}
+
+dependencies {
+    compile project(':base-common')
+    compile "org.jooq:jooq:$jooq_version"
+    compile "org.springframework:spring-context"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += 'src/gen/java'
+        }
+    }
+}
+
+task jooqCodegen {
+    doLast {
+        // Use your favourite XML builder to construct the code generation configuration file
+        // ----------------------------------------------------------------------------------
+        def writer = new StringWriter()
+        def xml = new MarkupBuilder(writer)
+                .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.9.2.xsd') {
+            jdbc() {
+                driver('com.mysql.cj.jdbc.Driver')
+                url('jdbc:mysql://localhost:3306/@projectName@?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai')
+                user('root')
+                password('root')
+            }
+            generator() {
+                database() {
+                    inputSchema('@projectName@')
+                    excludes('@projectName@_schema_version')
+
+                    forcedTypes() {
+                        forcedType() {
+                            userType("org.jooq.tools.json.JSONObject")
+                            binding("com.mobisist.springbootseed.appstarter.db.ext.MysqlJSONJooqJSONObjectBinding")
+                            types("json")
+                        }
+                    }
+                }
+                generate() {
+                    interfaces("true")
+                    javaTimeTypes("true")
+
+                    pojos("true")
+                    pojosEqualsAndHashCode("true")
+                    pojosToString("true")
+
+                    daos("true")
+                    springAnnotations("true")
+                }
+                target() {
+                    packageName('@packageName@.infra.db')
+                    directory('src/gen/java')
+                }
+            }
+        }
+        // Run the code generator
+        // ----------------------
+        GenerationTool.generate(
+                JAXB.unmarshal(new StringReader(writer.toString()), org.jooq.util.jaxb.Configuration.class)
+        )
+    }
+}

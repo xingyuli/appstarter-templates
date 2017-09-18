@@ -1,0 +1,9 @@
+rootProject.name = '@projectName@'
+
+include 'base-common'
+include 'data'
+include 'flyway-gradle-cli'
+include 'service'
+include 'web-common'
+include 'admin'
+include 'portal'

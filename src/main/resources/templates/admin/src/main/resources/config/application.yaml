@@ -1,0 +1,27 @@
+server.port: 9200
+
+---
+spring:
+  profiles: docker-local
+logging:
+  file: /var/logs/app/admin.log
+appstarter:
+  upload: file:/var/opt/upload
+
+---
+spring:
+  profiles: docker-dev
+logging:
+  file: /var/logs/app/admin.log
+appstarter:
+  random-seed: IlwstOBw7vu8AHYP
+  upload: file:/var/opt/upload
+
+---
+spring:
+  profiles: docker-prod
+logging:
+  file: /var/logs/app/admin.log
+appstarter:
+  random-seed: IlwstOBw7vu8AHYP
+  upload: file:/var/opt/upload

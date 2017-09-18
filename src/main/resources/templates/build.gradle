@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://artifactory.mobisist.com/artifactory/libs-all"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.spring.gradle:dependency-management-plugin:$plugin_dependency_management_version"
+    }
+}
+
+subprojects {
+    apply plugin: 'kotlin'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+    compileJava.options.encoding = 'UTF-8'
+
+    repositories {
+        mavenLocal()
+        maven {
+            url "http://artifactory.mobisist.com/artifactory/libs-all"
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:$spring_boot_version"
+        }
+    }
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        testCompile "org.springframework.boot:spring-boot-starter-test:$spring_boot_version"
+    }
+}
+
+["portal", "admin"].each { name ->
+    project(":$name") {
+        task copySql {
+            doFirst {
+                def sqlDir = 'src/main/resources/db/migration/'
+                delete fileTree(sqlDir)
+                copy {
+                    from new File(rootProject.projectDir, 'data/sql/')
+                    into sqlDir
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+# IntellijIDEA
+.idea/
+/out/
+/classes/
+
+# gradle
+.gradle
+
+# generated files
+admin/src/main/resources/db/migration/
+portal/src/main/resources/db/migration/
+
+# docker
+.env

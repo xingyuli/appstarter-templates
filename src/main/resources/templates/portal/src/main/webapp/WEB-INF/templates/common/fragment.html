@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--common meta-->
+<div th:fragment="meta">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</div>
+
+<!--common css-->
+<div th:fragment="css">
+    <!-- Vendor styles -->
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/bootstrap-3.3.7/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/external/vendor/bootstrap-3.3.7/css/bootstrap-theme.min.css}" />
+
+    <!-- App styles -->
+</div>
+
+<!-- common js -->
+<div th:fragment="js">
+    <!-- Vendor scripts -->
+    <script type="text/javascript" th:src="@{/assets/external/vendor/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/vendor/bootstrap-3.3.7/js/bootstrap.min.js}"></script>
+
+    <!-- App scripts -->
+    <script  type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var contextRoot = /*[[ ${#httpServletRequest.contextPath} ]]*/;
+
+        function toRelativeLocation(relativePath) {
+            location.href = contextRoot + relativePath;
+        }
+        /*]]>*/
+    </script>
+
+    <script type="text/javascript" th:src="@{/assets/external/js/common/api_constants.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/external/js/common/options.js}"></script>
+</div>
+
+</body>
+
+</html>

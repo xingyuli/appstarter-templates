@@ -1,0 +1,146 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/@projectName@?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jooq:
+      sql-dialect: mysql
+  thymeleaf:
+    cache: false
+    prefix: /WEB-INF/templates/
+  messages:
+    basename: i18n/builtin-errors,i18n/custom-errors
+    encoding: UTF-8
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  level:
+    org.jooq: DEBUG
+    org.springframework.web: DEBUG
+    com.github.binarywang.wxpay: DEBUG
+    com.mobisist.springbootseed.autoconfigure: DEBUG
+    com.mobisist.components.messaging: DEBUG
+    @packageName@: DEBUG
+    root: INFO
+
+management:
+  context-path: /suman
+endpoints:
+  enabled: false
+  sensitive: true
+  loggers:
+    enabled: true
+  trace:
+    enabled: true
+  beans:
+    enabled: true
+  auditevents:
+    enabled: true
+  metrics:
+    enabled: true
+  mappings:
+    enabled: true
+flyway:
+  table: @projectName@_schema_version
+  baseline-on-migrate: true
+
+appstarter:
+  random-seed: kRIg5KPyeBxX4PAr
+  upload: file:/source/upload
+  resource-domain-name: localhost:9302
+  portal-domain-name: localhost:9100
+  app-name: 中汽车匠
+  wechat-pay-notify-url: http://localhost:9100/wxpay/payedNotify
+  enum-packages:
+    - @packageName@.infra.db.enums
+
+wechat:
+  # customer's account
+  pay:
+    appId: wxe43788bd09def307
+    mchId: 1486835212
+    mchKey: DvuTJwJ93gmR1XFzvdfFZ6IysHcQBacC
+
+springbootseed:
+  messaging:
+    baidupush:
+      ios-api-key: 6g1H6LtGjHPq0WMaOeGs7OXx
+      ios-secret-key: IeHm4ASEfiFFgAcD3Oe1KGlxfjqstvdj
+      android-api-key: uYISG0XvxTgoIVSz5RInwLQX
+      android-secret-key: 7Ep4S7pvAuc76HIYgaFZhRH94rGqVA2P
+    yunpian:
+      api-key: 46b5574bced5e07a2c9315bbb851c3dc
+
+---
+spring:
+  profiles: docker-local
+  datasource:
+    url: jdbc:mysql://mysql:3306/@projectName@?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+flyway:
+  enabled: false
+appstarter:
+  resource-domain-name: localhost:9100/rs
+  portal-domain-name: localhost:9100/portal
+  wechat-pay-notify-url: http://localhost:9100/portal/wxpay/payedNotify
+
+---
+spring:
+  profiles: docker-dev
+  datasource:
+    url: jdbc:mysql://mysql:3306/@projectName@?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: zqtc
+    password: zqtc123456
+  thymeleaf:
+    cache: true
+logging:
+  level:
+    org.jooq: INFO
+flyway:
+  enabled: false
+appstarter:
+  resource-domain-name: @projectName@.mobisist.com/rs
+  portal-domain-name: @projectName@.mobisist.com/portal
+  wechat-pay-notify-url: http://@projectName@.mobisist.com/portal/wxpay/payedNotify
+springbootseed:
+  messaging:
+    baidupush:
+      enabled: true
+    yunpian:
+      enabled: true
+
+---
+spring:
+  profiles: docker-prod
+  datasource:
+    url: jdbc:mysql://mysql:3306/@projectName@?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: @projectName@
+    password: ISMVI1wYNn
+  thymeleaf:
+    cache: true
+logging:
+  level:
+    org.jooq: INFO
+    org.springframework.web: INFO
+    com.github.binarywang.wxpay: INFO
+    com.mobisist.springbootseed.autoconfigure: INFO
+    com.mobisist.components.messaging: INFO
+flyway:
+  enabled: false
+appstarter:
+  resource-domain-name: @projectName@.example.com/rs
+  portal-domain-name: @projectName@.example.com/portal
+  wechat-pay-notify-url: http://@projectName@.example.com/portal/wxpay/payedNotify
+springbootseed:
+  messaging:
+    baidupush:
+      enabled: true
+      ios-deploy-status: product
+    yunpian:
+      enabled: true
